@@ -1,28 +1,60 @@
 package sample;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Question {
-    protected final String id;
-    protected String enonceQuestion;
-    protected List<Proposition> propositions;
-    protected int nbPropositions;
-    protected Question(String id) {
+    private final String id;
+    private String enonceQuestion;
+    private List<Proposition> propositions;
+    public Question(String id,String enonceQuestion) {
         this.id = id;
+        this.enonceQuestion = enonceQuestion;
+        propositions = new ArrayList<>();
     }
-    public void AjouterPropositionAQuestion(Proposition proposition)
+
+    public String getId() {
+        return id;
+    }
+
+    public String getEnonceQuestion() {
+        return enonceQuestion;
+    }
+
+    public List<Proposition> getPropositions() {
+        return propositions;
+    }
+
+    public void setEnonceQuestion(String enonceQuestion) {
+        this.enonceQuestion = enonceQuestion;
+    }
+
+    public void ajouterPropositionAQuestion(Proposition proposition)
     {
         propositions.add(proposition);
-        nbPropositions++;
+
     }
-    public void RetirerPropositionDeQuestion(String propositionId)
+    public void retirerPropositionDeQuestion(String propositionId)
     {
         for (Proposition p:propositions) {
-            if ((p.id).equals(propositionId))
+            if ((p.getId()).equals(propositionId))
             {
                 propositions.remove(p);
-                nbPropositions--;
+
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof  Question) {
+            return this.id.equals(((Question) obj).id);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }
