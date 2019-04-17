@@ -69,4 +69,8 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
             e.printStackTrace();
         }
     }
+
+    public void setReussiteMoyenne(double reussiteMoyenne) {
+        this.reussiteMoyenne = reussiteMoyenne;
+    }
 }

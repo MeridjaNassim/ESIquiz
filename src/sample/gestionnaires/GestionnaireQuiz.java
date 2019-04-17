@@ -10,24 +10,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
-public class GestionnaireQuiz {
-    private Formation formation ; /// représente la formation en cours de gestion par ce gestionnaire
+public class GestionnaireQuiz extends Gestionnaire{
 
-    public void setFormation(Formation formation) {
-        this.formation = formation;
-    }
-
-    public Formation getFormation() {
-        return formation;
-    }
     public Quiz nouveauQuiz(HashMap<Notion,Integer> notions){
         /// génére un quiz contenant des question telle que pour chaque notion on prend un nombre donnée de question
         Quiz quiz = new Quiz(GeneratorID.newQuizID());
         buildQuestions(notions,quiz);
+        this.getFormation().getQuizzes().add(quiz); /// ajout du quiz à la formation courante
         return quiz;
     }
     public void modifierTitreQuiz(String quizId ,String newTitle) {
-        for (Quiz qz :formation.getQuizzes()
+        for (Quiz qz :getFormation().getQuizzes()
              ) {
             if(qz.getId().equals(quizId)) {
                 qz.setNomQuiz(newTitle);
@@ -36,28 +29,28 @@ public class GestionnaireQuiz {
         }
     }
     public void modifierDateOuverture(String quizId, Date newDate){
-        for (Quiz qz : formation.getQuizzes()){
+        for (Quiz qz : getFormation().getQuizzes()){
             if(qz.getId().equals(quizId)){
                 qz.setOuvertureDate(newDate);
             }
         }
     }
     public void modifierDateFermeture(String quizId, Date newDate){
-        for (Quiz qz : formation.getQuizzes()){
+        for (Quiz qz : getFormation().getQuizzes()){
             if(qz.getId().equals(quizId)){
                 qz.setExpirationDate(newDate);
             }
         }
     }
     public void supprimerQuestion(String quizId, String questionId){
-        for (Quiz qz : formation.getQuizzes()){
+        for (Quiz qz : getFormation().getQuizzes()){
             if(qz.getId().equals(quizId)){
                 qz.supprimerQuestion(questionId);
             }
         }
     }
     public void ajouterQuestion(String quizId , String notionID){
-        for (Quiz qz: formation.getQuizzes()
+        for (Quiz qz: getFormation().getQuizzes()
              ) {
             if(qz.getId().equals(quizId)){
                 /// while the question already exists in quiz change it randomly
@@ -70,7 +63,7 @@ public class GestionnaireQuiz {
         }
     }
     public  void changerQuestion(String quizId,String questionId , String newQsNotionId){
-        for (Quiz quiz : formation.getQuizzes()
+        for (Quiz quiz : getFormation().getQuizzes()
              ) {
             if(quiz.getId().equals(quizId)){
                 Question question = randomQuastion(newQsNotionId);
@@ -81,9 +74,12 @@ public class GestionnaireQuiz {
             }
         }
     }
+    public void sauvegarder(String quizId){
+
+    }
 
     public boolean isQuizOuvert(String quizId){
-        for (Quiz qz: formation.getQuizzes()
+        for (Quiz qz: getFormation().getQuizzes()
              ) {
             if( qz.getId().equals(quizId)){
                 return qz.getOuvertureDate().before(new Date());
@@ -97,7 +93,7 @@ public class GestionnaireQuiz {
     }
 
     public void afficherQuizs(){
-        for (Quiz quiz: formation.getQuizzes()
+        for (Quiz quiz: getFormation().getQuizzes()
              ) {
             afficheQuiz(quiz);
         }
@@ -107,7 +103,7 @@ public class GestionnaireQuiz {
             afficherQuizs();
             return;
         }
-        for (Quiz quiz: formation.getQuizzes()
+        for (Quiz quiz: getFormation().getQuizzes()
         ) {
             if (isQuizOuvert(quiz)) {
                 afficheQuiz(quiz);
@@ -134,7 +130,7 @@ public class GestionnaireQuiz {
         System.out.println("--Les propositions--");
         for (Proposition props : question.getPropositions()
              ) {
-            System.out.println(props.getId()+"-"+props.proposition);
+            System.out.println(props.getId()+"-"+props.getProposition());
         }
 
     }
@@ -151,7 +147,7 @@ public class GestionnaireQuiz {
         }
     }
     private Question randomQuastion(String notionID){
-        for (Notion notion: formation.getNotions()
+        for (Notion notion: getFormation().getNotions()
              ) {
             if(notion.getId().equals(notionID)){
                 Random rand = new Random();

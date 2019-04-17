@@ -50,6 +50,14 @@ public class Compte {
         return login;
     }
 
+    public Personne getProprietaire() {
+        return proprietaire;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof  Compte) {

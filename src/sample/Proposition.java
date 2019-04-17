@@ -2,10 +2,11 @@ package sample;
 
 public class Proposition {
     private final String id;
-    public String proposition;
+    private String proposition;
     private final boolean propositionCorrect;
-    public Proposition(String id, boolean propositionCorrect) {
+    public Proposition(String id, boolean propositionCorrect , String proposition) {
         this.id = id;
+        this.proposition = proposition;
         this.propositionCorrect = propositionCorrect;
     }
 
@@ -19,6 +20,18 @@ public class Proposition {
             return this.id.equals(((Proposition) obj).id);
         }
         return false;
+    }
+
+    public void setProposition(String proposition) {
+        this.proposition = proposition;
+    }
+
+    public String getProposition() {
+        return proposition;
+    }
+
+    public boolean isPropositionCorrect() {
+        return propositionCorrect;
     }
 
     @Override

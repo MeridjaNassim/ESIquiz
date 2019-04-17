@@ -1,12 +1,16 @@
 package sample;
 
+import sample.utils.Evaluator;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class Question {
     private final String id;
     private String enonceQuestion;
     private List<Proposition> propositions;
+    protected Evaluator<Proposition> EVALUTOR;
     public Question(String id,String enonceQuestion) {
         this.id = id;
         this.enonceQuestion = enonceQuestion;
@@ -56,5 +60,9 @@ public abstract class Question {
     @Override
     public int hashCode() {
         return this.id.hashCode();
+    }
+
+    public double evaluer(Proposition propose , Proposition choisi){
+        return EVALUTOR.evaluate(propose,choisi);
     }
 }
