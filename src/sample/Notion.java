@@ -8,7 +8,6 @@ public class Notion {
     private String name ;
     private String description;
     private Set<Question> questionsSet;
-    public int nbQuestion=0;
     public Notion(String id,String name) {
         this.id = id;
         this.name = name;
@@ -49,13 +48,6 @@ public class Notion {
         this.description = description;
     }
 
-    public int getNbQuestion() {
-        return nbQuestion;
-    }
-
-    public void setNbQuestion(int nbQuestion) {
-        this.nbQuestion = nbQuestion;
-    }
 
     public Set<Question> getQuestionsSet() {
         return questionsSet;

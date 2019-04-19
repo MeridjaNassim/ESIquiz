@@ -21,6 +21,7 @@ public class Quiz {
     }
     public Quiz(String id){
         this.id = id;
+        questions = new HashSet<>();
     }
 
     public String getId() {
@@ -60,12 +61,12 @@ public class Quiz {
         this.ouvertureDate = ouvertureDate;
     }
     public void remplacerQuestion(@NotNull String id , Question newQuestion){
-        for (Question qs: questions) {
-            if(qs.getId().equals(id)){
-                qs = newQuestion;
-                return;
-            }
-        }
+       Question temp = new QO(id,null);
+       this.getQuestions().remove(temp);
+       this.getQuestions().add(newQuestion);
+    }
+    public void remplacerQuestion(Question q1,Question newQuestion){
+        q1=newQuestion;
     }
     public void supprimerQuestion(@NotNull String id ){
         for (Question qs: questions) {

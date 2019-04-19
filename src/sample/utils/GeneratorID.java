@@ -69,6 +69,6 @@ public final class GeneratorID {
     }
     public static String newPropositionID(){
         propositionID++;
-        return "QUIZ-"+Integer.toHexString(propositionID);
+        return "PROPO-"+Integer.toHexString(propositionID);
     }
 }

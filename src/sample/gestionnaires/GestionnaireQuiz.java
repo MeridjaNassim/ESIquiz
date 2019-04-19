@@ -67,7 +67,7 @@ public class GestionnaireQuiz extends Gestionnaire{
              ) {
             if(quiz.getId().equals(quizId)){
                 Question question = randomQuastion(newQsNotionId);
-                while (question.getId().equals(questionId)){
+                while (question.getId().equals(questionId) && quiz.getQuestions().contains(question)){
                     question = randomQuastion(newQsNotionId);
                 }
                 quiz.remplacerQuestion(questionId,question);
@@ -158,5 +158,31 @@ public class GestionnaireQuiz extends Gestionnaire{
         }
         return null;
     }
-
+    public Quiz getQuizByID(String id) {
+        for (Quiz quiz: getFormation().getQuizzes()) {
+            if(quiz.getId().equals(id)){
+                return quiz;
+            }
+        }
+        return null;
+    }
+    public Question getQuestionByID(Quiz quiz , String id ){
+        for (Question question: quiz.getQuestions()
+                ) {
+            if(question.getId().equals(id)){
+                return question;
+            }
+        }
+        return null;
+    }
+    public Question getQuestionByID(String id){
+        for (Quiz quiz: getFormation().getQuizzes()
+             ) {
+            Question question = getQuestionByID(quiz,id);
+            if(question != null) {
+                return question;
+            }
+        }
+        return null;
+    }
 }

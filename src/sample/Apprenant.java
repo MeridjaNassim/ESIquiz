@@ -17,8 +17,8 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
 
     public Apprenant(String id, String name, String prenom, Date dateDeNaissance, String lieuDeNaissance, String adresse) {
         super(id, name, prenom, dateDeNaissance, lieuDeNaissance, adresse);
-        evaluations=new HashMap<Quiz,Double>();
-        quizsEntames=new HashMap<Quiz, List<Reponse>>();
+        evaluations=new HashMap<>();
+        quizsEntames=new HashMap<>();
     }
 
     public Apprenant(String id, String name, String prenom, Date dateDeNaissance, String lieuDeNaissance) {
@@ -73,5 +73,12 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
 
     public void setReussiteMoyenne(double reussiteMoyenne) {
         this.reussiteMoyenne = reussiteMoyenne;
+    }
+
+    @Override
+    public String toString() {
+        return "ID : "+id+"\n"+
+                "Name : "+name+"\n"+
+                "moyenne : "+reussiteMoyenne+"\n";
     }
 }
