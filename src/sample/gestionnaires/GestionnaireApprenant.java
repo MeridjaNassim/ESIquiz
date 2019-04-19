@@ -129,9 +129,8 @@ public class GestionnaireApprenant extends Gestionnaire {
             }
         }
     }
-    private Apprenant nouveauApprenant(Personne person) {
+    public Apprenant nouveauApprenant(Personne person) {
         Apprenant apprenant = new Apprenant(GeneratorID.newPersonID(Apprenant.class),person.getName(),person.getPrenom(),person.getDateDeNaissance(),person.getLieuDeNaissance(),person.getAdresse());
-
         return apprenant;
     }
 

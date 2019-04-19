@@ -4,17 +4,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.gestionnaires.GestionnaireApprenant;
+import sample.gestionnaires.GestionnaireFormation;
 import sample.utils.GenerateurCompte;
 import sample.utils.GeneratorID;
 
-import javax.xml.crypto.Data;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class ESIQuiz extends Application {
 
@@ -40,16 +39,52 @@ public class ESIQuiz extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
-
-
         primaryStage.show();
     }
 
 
     public static void main(String[] args)
     {
-        //launch(args);
+        Date dateDeNaissance = new GregorianCalendar(1999, Calendar.NOVEMBER, 13).getTime();
+        //La generation des id des differents elements de l'application: formateurs ,apprenenats,.....
         GeneratorID.initIDs();
+        //la creation d'un formateur
+        Formateur formateur_1=new Formateur(GeneratorID.newPersonID(Formateur.class),"Benantar","Abdennour",dateDeNaissance,"Khenchela","Khenchela");
+        // la creation du compte relatif au foramteur (formateur_1)
+        Compte compte_1= GenerateurCompte.generateCompte((Personne)formateur_1);
+        //on rajoute le compte crée a l'ensemble des comptes de l'application
+        comptes.add(compte_1);
+        //l'authentification de ce compte
+        if(authentifier(compte_1.getLogin(),compte_1.getPassword()))
+        {
+            System.out.println("Connecté au compte :"+connecte.getLogin()+"avec succés");
+        }
+        else
+        {
+            System.out.println("Echèc de connexion ,essayez a nouveau");
+            return;
+        }
+        //la creation d'une nouvelle formation
+        GestionnaireFormation gestForm1=new GestionnaireFormation();
+        gestForm1.init();
+        //
+        GestionnaireApprenant gestApprenant=new GestionnaireApprenant();
+        //
+        Apprenant apprenant_1=new Apprenant(GeneratorID.newPersonID(Apprenant.class),"apprenant_1","Numero1",dateDeNaissance,"khenchela");
+        Apprenant apprenant_2=new Apprenant(GeneratorID.newPersonID(Apprenant.class),"apprenant_2","Numero2",dateDeNaissance,"khenchela");
+        Apprenant apprenant_3=new Apprenant(GeneratorID.newPersonID(Apprenant.class),"apprenant_3","Numero3",dateDeNaissance,"khenchela");
+        //
+        Compte compte_2=GenerateurCompte.generateCompte((Personne)apprenant_1);
+        Compte compte_3=GenerateurCompte.generateCompte((Personne)apprenant_2);
+        Compte compte_4=GenerateurCompte.generateCompte((Personne)apprenant_3);
+        //
+        comptes.add(compte_2);
+        comptes.add(compte_3);
+        comptes.add(compte_4);
+        //l'ajout des apprenants a la formationq en cours(gestForm1)
+
+
+
         Formateur formateur1 = new Formateur(GeneratorID.newPersonID(Formateur.class),"nassim",null,null,null);
         Personne apprenant1 = new Apprenant(GeneratorID.newPersonID(Apprenant.class),"meridja","nassim",new Date(),null);
         comptes.add(new Compte("hello","world",null));

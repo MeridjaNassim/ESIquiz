@@ -1,14 +1,15 @@
 package sample;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.jetbrains.annotations.*;
 public class Apprenant extends Personne implements  Comparable<Apprenant> {
    ///<summary>
-   ///Cette class représente un simple Apprenant utilisatant l'application à travers son compte elle dérive de la class personne
+   ///Cette class représente un simple Apprenant utilisant l'application à travers son compte, elle dérive de la class personne
     /// qui contient les champs : nom , prénom , ...Etc
-    /// contient de plus des champ propre au activité de l'apprenant comme les quiz entamé , les evalutions de cette etudiant
+    /// contient de plus des champs propres au activités de l'apprenant comme les quiz entamés , les evalutions de cet etudiant
    ///</summary>
    private HashMap<Quiz,Double> evaluations;
    private HashMap<Quiz,List<Reponse>> quizsEntames;
