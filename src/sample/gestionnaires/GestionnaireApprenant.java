@@ -142,4 +142,16 @@ public class GestionnaireApprenant extends Gestionnaire {
     public void trierApprenantsSelonMoyenne(){
         Collections.sort(getFormation().getApprenants());
     }
+    public Apprenant getApprenantByID(String id) {
+        return getApprenantByID(this.getFormation(),id);
+    }
+    public Apprenant getApprenantByID(Formation formation , String id) {
+        for (Apprenant apprenant: formation.getApprenants()
+             ) {
+            if(apprenant.getId().equals(id)) {
+                return apprenant;
+            }
+        }
+        return null;
+    }
 }

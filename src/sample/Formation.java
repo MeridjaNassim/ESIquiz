@@ -35,6 +35,7 @@ public class Formation {
         this.expirationFormationDate = expirationFormationDate;
         this.formateur = formateur;
         quizzes = new ArrayList<>();
+        apprenants = new ArrayList<>();
         notions = new ArrayList<>();
     }
 

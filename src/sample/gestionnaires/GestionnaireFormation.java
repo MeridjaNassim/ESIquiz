@@ -62,7 +62,25 @@ public class GestionnaireFormation {
             }
         }
     }
+    public void afficherApprenants(String formationID){
+      Formation formation =getFormationByID(formationID);
+        for (Apprenant ap: formation.getApprenants()
+             ) {
+            System.out.println(ap.toString());
+        }
 
+    }
+    public Formation getFormationByID(String id){
+       if(formateur.hasFormation(id)){
+           for (Formation formation: ESIQuiz.getFormations()
+                   ) {
+               if(formation.getId().equals(id)){
+                   return formation;
+               }
+           }
+       }
+        return null;
+    }
     public void init(){
          formateur = (Formateur) ESIQuiz.getConnecte().getProprietaire();
     }
