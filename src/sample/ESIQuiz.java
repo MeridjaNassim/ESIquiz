@@ -139,6 +139,7 @@ public class ESIQuiz extends Application {
         quiz1.setOuvertureDate(new Date());
         System.out.println("-------------- Affichage du quiz ---------------");
         gestquiz.afficheQuiz(quiz1);
+        return;
     }
      static boolean authentifier(String username , String password){
         Compte temp = new Compte(username,password,null);
