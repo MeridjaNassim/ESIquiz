@@ -16,26 +16,33 @@ public class GestionnaireApprenant extends Gestionnaire {
             }
     }
     public void evaluerApprenant(Apprenant apprenant){
+        /// Evalue tous les quiz de l'apprenant
+        HashMap<Quiz,List<Reponse>> quizzes = apprenant.getQuizsEntames();
+        for (Quiz quiz: quizzes.keySet() ) {
+            evaluerApprenant(apprenant,quiz);
+        }
+    }
+    public void evaluerApprenant(Apprenant apprenant,Quiz quiz){
+        ///evalue le quiz concerner
         Date today = new Date();
         double noteQuiz = 0;
         HashMap<Quiz,List<Reponse>> quizzes = apprenant.getQuizsEntames();
-        for (Quiz quiz: quizzes.keySet() ) {
-            if(quiz.getExpirationDate().before(today)){
-                /// comparer les repnses
-                List<Reponse> reponses = quizzes.get(quiz);
-                for (Reponse reponse: reponses) {
-                    for (Question question: quiz.getQuestions()
-                         ) {
-                        if(question.getId().equals(reponse.getId())){
-                           noteQuiz+= evaluerReponse(question,reponse);
-                        }
+        if(quiz.getExpirationDate().before(today)){
+            /// comparer les repnses
+            List<Reponse> reponses = quizzes.get(quiz);
+            for (Reponse reponse: reponses) {
+                for (Question question: quiz.getQuestions()
+                        ) {
+                    if(question.getId().equals(reponse.getId())){
+                        noteQuiz+= evaluerReponse(question,reponse);
                     }
                 }
-                apprenant.addEvalution(quiz,noteQuiz*100/quiz.getQuestions().size());
-                apprenant.getQuizsEntames().remove(quiz);
             }
+            apprenant.addEvalution(quiz,noteQuiz*100/quiz.getQuestions().size());
+            apprenant.getQuizsEntames().remove(quiz);
         }
     }
+
     private double evaluerReponse(Question question , Reponse reponse){
         /// récupérer l'ensemble des proposition choisi de l'apprenant depuis sa réponse
         HashSet<Proposition> propositions = reponse.getPropositions();
@@ -89,7 +96,7 @@ public class GestionnaireApprenant extends Gestionnaire {
         }
     }
     public void afficherQuizEntame(String apprenantID){
-        for (Apprenant apprenant:getFormation().getApprenants()
+        for (Apprenant apprenant:this.getFormation().getApprenants()
                 ) {
             if(apprenant.getId().equals(apprenantID)) {
                 for (Quiz quiz: apprenant.getQuizsEntames().keySet()
@@ -129,7 +136,7 @@ public class GestionnaireApprenant extends Gestionnaire {
             }
         }
     }
-    private Apprenant nouveauApprenant(Personne person) {
+    public Apprenant nouveauApprenant(Personne person) {
         Apprenant apprenant = new Apprenant(GeneratorID.newPersonID(Apprenant.class),person.getName(),person.getPrenom(),person.getDateDeNaissance(),person.getLieuDeNaissance(),person.getAdresse());
 
         return apprenant;

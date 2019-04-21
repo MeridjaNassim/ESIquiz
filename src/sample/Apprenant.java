@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.jetbrains.annotations.*;
+import sample.gestionnaires.GestionnaireQuiz;
+
 public class Apprenant extends Personne implements  Comparable<Apprenant> {
    ///<summary>
    ///Cette class représente un simple Apprenant utilisatant l'application à travers son compte elle dérive de la class personne
@@ -80,4 +82,5 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
                 "Name : "+name+"\n"+
                 "moyenne : "+reussiteMoyenne+"\n";
     }
+
 }
