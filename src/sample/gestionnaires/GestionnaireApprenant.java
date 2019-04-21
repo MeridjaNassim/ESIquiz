@@ -138,7 +138,6 @@ public class GestionnaireApprenant extends Gestionnaire {
     }
     public Apprenant nouveauApprenant(Personne person) {
         Apprenant apprenant = new Apprenant(GeneratorID.newPersonID(Apprenant.class),person.getName(),person.getPrenom(),person.getDateDeNaissance(),person.getLieuDeNaissance(),person.getAdresse());
-
         return apprenant;
     }
 
