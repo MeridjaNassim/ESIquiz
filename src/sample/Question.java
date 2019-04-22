@@ -50,9 +50,8 @@ public abstract class Question {
     public void afficherPropositions()
     {
         for (Proposition p:propositions) {
-            System.out.println(p.getProposition());
+            System.out.println("id :("+p.getId()+") :"+p.getProposition());
         }
-
     }
 
     @Override

@@ -74,7 +74,7 @@ public class GestionnaireApprenant extends Gestionnaire {
         for (Quiz quiz: apprenant.getQuizsEntames().keySet()
              ) {
             if(quiz.getId().equals(quizId)){
-                return (quiz.getQuestions().size() ==0 ) ?0:apprenant.getQuizsEntames().get(quiz).size()/quiz.getQuestions().size();
+                return (quiz.getQuestions().size() ==0 ) ?0:(double)apprenant.getQuizsEntames().get(quiz).size()/(double)quiz.getQuestions().size();
             }
         }
         return 0;
@@ -82,7 +82,7 @@ public class GestionnaireApprenant extends Gestionnaire {
     public double tauxAccomplissement(Apprenant apprenant,Quiz quiz){
         /// Calcule le taux d'accomplissement d'un quiz par un apprenant
 
-        return (quiz.getQuestions().size() ==0 ) ?0:apprenant.getQuizsEntames().get(quiz).size()/quiz.getQuestions().size();
+        return (quiz.getQuestions().size() ==0 ) ?0:(double)apprenant.getQuizsEntames().get(quiz).size()/(double)quiz.getQuestions().size();
 
     }
     public void afficherQuizAcheve(String apprenantID){

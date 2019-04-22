@@ -141,53 +141,97 @@ public class ESIQuiz extends Application {
         quiz1.setOuvertureDate(new Date());
         System.out.println("-------------- Affichage du quiz ---------------");
         gestquiz.afficheQuiz(quiz1);
-        System.out.println("---------------Scenario 1: 100% reponses sur un quiz--------------");
-        Pair<Quiz,List<Reponse>> QnA1= gestquiz.ouvrirQuiz(quiz1.getId(),apprenant_1,true);
-         List<Reponse> lreponses=new ArrayList<Reponse>();
-        for (Question q:QnA1.getKey().getQuestions())
-        {
-            List<Proposition> lpropos=new ArrayList<Proposition>();
-            System.out.println("Question : "+q.getEnonceQuestion()+"("+q.getClass()+")");
-            for (int i=0;i<q.getPropositions().size();++i)
-            {
+        System.out.println("Tapper : \n" +
+                           "1.Scenario 100% \n" +
+                           "2. Deuxieme scenario < 100%");
+        Scanner scanner=new Scanner(System.in);
+        String s=scanner.nextLine();
+        if (s.equals("1")) {
+            System.out.println("---------------Scenario 1: 100% reponses sur un quiz--------------");
+            Pair<Quiz, List<Reponse>> QnA1 = gestquiz.ouvrirQuiz(quiz1.getId(), apprenant_1, true);
+            List<Reponse> lreponses = new ArrayList<Reponse>();
+            for (Question q : QnA1.getKey().getQuestions()) {
+                List<Proposition> lpropos = new ArrayList<Proposition>();
+                System.out.println("Question : " + q.getEnonceQuestion() + "(" + q.getClass() + ")");
+                System.out.println(q.getPropositions().size());
                 q.afficherPropositions();
-            }
-            Scanner sc=new Scanner(System.in);
-            if (q.getClass() == QCU.class)
-            {
-                System.out.println("RECOPIER LA BONNE REPONSE \n");
-                String reponseString=sc.nextLine();
-                Proposition proposition=new Proposition(null,null,reponseString);
-                lpropos.add(proposition);
-            }
-            if (q.getClass() == QCM.class)
-            {
-                System.out.println("RECOPIER LES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
-                String reponseString;
-                while ((reponseString = sc.nextLine()).length() > 0)
-                {
-                    Proposition proposition=new Proposition(null,null,reponseString);
+                Scanner sc = new Scanner(System.in);
+                if (q.getClass() == QCU.class) {
+                    System.out.println("RECOPIER L'ID DE LA  BONNE REPONSE \n");
+                    String reponseiDString = sc.nextLine();
+                    Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
                     lpropos.add(proposition);
                 }
-
+                if (q.getClass() == QCM.class) {
+                    System.out.println("RECOPIER LES ID DES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
+                    String reponseiDString;
+                    while ((reponseiDString = sc.nextLine()).length() > 0) {
+                        Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
+                        lpropos.add(proposition);
+                    }
+                }
+                if (q.getClass() == QO.class) {
+                    System.out.println("ENTRER VOTRE REPONSE \n");
+                    String reponseString = sc.nextLine();
+                    Proposition proposition = new Proposition(null, null, reponseString);
+                    lpropos.add(proposition);
+                }
+                Reponse reponse = gestquiz.buildReponse(q.getId(), lpropos);
+                lreponses.add(reponse);
+                System.out.println("--------------------------");
             }
-            if(q.getClass()==QO.class)
+            gestquiz.repondre(apprenant_1,QnA1.getKey(),lreponses);
+        }else
+        {
+            if (s.equals("2"))
             {
-                System.out.println("ENTRER VOTRE REPONSE \n");
-                String reponseString=sc.nextLine();
-                Proposition proposition=new Proposition(null,null,reponseString);
-                lpropos.add(proposition);
+                System.out.println("---------------Scenario 2: Quiz inachevé--------------");
+                Pair<Quiz, List<Reponse>> QnA1 = gestquiz.ouvrirQuiz(quiz1.getId(), apprenant_1, true);
+                List<Reponse> lreponses = new ArrayList<Reponse>();
+                int i=0;
+                for (Question q : QnA1.getKey().getQuestions()) {
+
+                    List<Proposition> lpropos = new ArrayList<Proposition>();
+                    System.out.println("Question : " + q.getEnonceQuestion() + "(" + q.getClass() + ")");
+                    System.out.println(q.getPropositions().size());
+                    q.afficherPropositions();
+                    Scanner sc = new Scanner(System.in);
+                    if (q.getClass() == QCU.class) {
+                        System.out.println("RECOPIER L'ID DE LA  BONNE REPONSE \n");
+                        String reponseiDString = sc.nextLine();
+                        Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
+                        lpropos.add(proposition);
+                    }
+                    if (q.getClass() == QCM.class) {
+                        System.out.println("RECOPIER LES ID DES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
+                        String reponseiDString;
+                        while ((reponseiDString = sc.nextLine()).length() > 0) {
+                            Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
+                            lpropos.add(proposition);
+                        }
+                    }
+                    if (q.getClass() == QO.class) {
+                        System.out.println("ENTRER VOTRE REPONSE \n");
+                        String reponseString = sc.nextLine();
+                        Proposition proposition = new Proposition(null, null, reponseString);
+                        lpropos.add(proposition);
+                    }
+                    Reponse reponse = gestquiz.buildReponse(q.getId(), lpropos);
+                    lreponses.add(reponse);
+                    System.out.println("--------------------------");
+                    i++;
+                    if (i==2)
+                    {
+                        break;
+                    }
+                }
+                gestquiz.repondre(apprenant_1,QnA1.getKey(),lreponses);
             }
-            Reponse reponse=gestquiz.buildReponse(q.getId(),lpropos);
-            lreponses.add(reponse);
-            System.out.println("--------------------------");
+            else {
+                System.out.println("Taper 1 ou 2");
+            }
         }
-        gestquiz.repondre(apprenant_1,QnA1.getKey(),lreponses);
-        System.out.println(apprenant_1.getQuizsEntames().get(quiz1).size());
-        System.out.println(lreponses.size());
-        System.out.println(quiz1.getQuestions().size());
-        System.out.println("le taux d'accomplissement de ce quiz est : "+(gestApprenant.tauxAccomplissement(apprenant_1,quiz1))*100+" %a");
-        System.out.println("---------------Scenario 1: quiz non achevé--------------");
+        System.out.println("le taux d'accomplissement de ce quiz est : "+(gestApprenant.tauxAccomplissement(apprenant_1,quiz1))*100+" %");
     }
      static boolean authentifier(String username , String password){
         Compte temp = new Compte(username,password,null);
