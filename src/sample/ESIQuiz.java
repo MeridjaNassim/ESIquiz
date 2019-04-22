@@ -141,6 +141,7 @@ public class ESIQuiz extends Application {
         quiz1.setOuvertureDate(new Date());
         System.out.println("-------------- Affichage du quiz ---------------");
         gestquiz.afficheQuiz(quiz1);
+        gestApprenant.setFormation(formation_1);
         System.out.println("Tapper : \n" +
                            "1.Scenario 100% \n" +
                            "2. Deuxieme scenario < 100%");
@@ -149,20 +150,21 @@ public class ESIQuiz extends Application {
         if (s.equals("1")) {
             System.out.println("---------------Scenario 1: 100% reponses sur un quiz--------------");
             Pair<Quiz, List<Reponse>> QnA1 = gestquiz.ouvrirQuiz(quiz1.getId(), apprenant_1, true);
-            List<Reponse> lreponses = new ArrayList<Reponse>();
+            List<Reponse> lreponses = new ArrayList<>();
             for (Question q : QnA1.getKey().getQuestions()) {
-                List<Proposition> lpropos = new ArrayList<Proposition>();
-                System.out.println("Question : " + q.getEnonceQuestion() + "(" + q.getClass() + ")");
-                System.out.println(q.getPropositions().size());
-                q.afficherPropositions();
+                List<Proposition> lpropos = new ArrayList<>();
+                System.out.println("Question : " + q.getEnonceQuestion() + "(" + q.getClass().getSimpleName() + ")");
+                System.out.println("Nombre de propositions : " +q.getPropositions().size());
                 Scanner sc = new Scanner(System.in);
                 if (q.getClass() == QCU.class) {
+                    q.afficherPropositions();
                     System.out.println("RECOPIER L'ID DE LA  BONNE REPONSE \n");
                     String reponseiDString = sc.nextLine();
                     Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
                     lpropos.add(proposition);
                 }
                 if (q.getClass() == QCM.class) {
+                    q.afficherPropositions();
                     System.out.println("RECOPIER LES ID DES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
                     String reponseiDString;
                     while ((reponseiDString = sc.nextLine()).length() > 0) {
@@ -187,22 +189,24 @@ public class ESIQuiz extends Application {
             {
                 System.out.println("---------------Scenario 2: Quiz inachevé--------------");
                 Pair<Quiz, List<Reponse>> QnA1 = gestquiz.ouvrirQuiz(quiz1.getId(), apprenant_1, true);
-                List<Reponse> lreponses = new ArrayList<Reponse>();
+                List<Reponse> lreponses = new ArrayList<>();
                 int i=0;
                 for (Question q : QnA1.getKey().getQuestions()) {
 
-                    List<Proposition> lpropos = new ArrayList<Proposition>();
+                    List<Proposition> lpropos = new ArrayList<>();
                     System.out.println("Question : " + q.getEnonceQuestion() + "(" + q.getClass() + ")");
                     System.out.println(q.getPropositions().size());
-                    q.afficherPropositions();
+
                     Scanner sc = new Scanner(System.in);
                     if (q.getClass() == QCU.class) {
+                        q.afficherPropositions();
                         System.out.println("RECOPIER L'ID DE LA  BONNE REPONSE \n");
                         String reponseiDString = sc.nextLine();
                         Proposition proposition = new Proposition(reponseiDString, null, gestquiz.getPropositionByID(q, reponseiDString).getProposition());
                         lpropos.add(proposition);
                     }
                     if (q.getClass() == QCM.class) {
+                        q.afficherPropositions();
                         System.out.println("RECOPIER LES ID DES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
                         String reponseiDString;
                         while ((reponseiDString = sc.nextLine()).length() > 0) {
@@ -230,8 +234,16 @@ public class ESIQuiz extends Application {
             else {
                 System.out.println("Taper 1 ou 2");
             }
+
+
         }
         System.out.println("le taux d'accomplissement de ce quiz est : "+(gestApprenant.tauxAccomplissement(apprenant_1,quiz1))*100+" %");
+        gestApprenant.afficherQuizEntame(apprenant_1.getId());
+        gestApprenant.evaluerApprenant(apprenant_1,true);
+        gestApprenant.afficherReussiteMoyenne(apprenant_1.getId());
+        gestApprenant.calculReussiteMoyenne(apprenant_1.getId());
+        gestApprenant.afficherReussiteMoyenne(apprenant_1.getId());
+
     }
      static boolean authentifier(String username , String password){
         Compte temp = new Compte(username,password,null);
@@ -244,7 +256,7 @@ public class ESIQuiz extends Application {
         }
         return false;
     }
-    static void listFormations(){
+     static void listFormations(){
         for (Formation formation: formations
              ) {
             System.out.println("Formation ID : " + formation.getId());

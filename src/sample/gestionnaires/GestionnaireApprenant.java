@@ -9,25 +9,27 @@ import java.util.*;
 public class GestionnaireApprenant extends Gestionnaire {
 
 
-    public void evaluerApprenants(){
+    public void evaluerApprenants(boolean notUseDate){
         for (Apprenant apprenant: getFormation().getApprenants()
              ) {
-            evaluerApprenant(apprenant);
+            evaluerApprenant(apprenant,notUseDate);
             }
     }
-    public void evaluerApprenant(Apprenant apprenant){
+    public void evaluerApprenant(Apprenant apprenant,boolean notUseDate){
         /// Evalue tous les quiz de l'apprenant
         HashMap<Quiz,List<Reponse>> quizzes = apprenant.getQuizsEntames();
         for (Quiz quiz: quizzes.keySet() ) {
-            evaluerApprenant(apprenant,quiz);
+            evaluerApprenant(apprenant,quiz,notUseDate);
         }
     }
-    public void evaluerApprenant(Apprenant apprenant,Quiz quiz){
+    public void evaluerApprenant(Apprenant apprenant,Quiz quiz,boolean notUseDate){
         ///evalue le quiz concerner
+        /// if notUseDate == true the method will evalute the Apprenant even if quiz is not finished
+        /// if false it will evaluate only if date passe expiration date of quiz
         Date today = new Date();
         double noteQuiz = 0;
         HashMap<Quiz,List<Reponse>> quizzes = apprenant.getQuizsEntames();
-        if(quiz.getExpirationDate().before(today)){
+        if(quiz.getExpirationDate().before(today) || notUseDate){
             /// comparer les repnses
             List<Reponse> reponses = quizzes.get(quiz);
             for (Reponse reponse: reponses) {

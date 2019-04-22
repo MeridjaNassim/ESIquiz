@@ -26,7 +26,7 @@ public class QCM extends Question {
 
     }
 
-    public double evaluer(Set<Proposition> propositionsChoisi){
+    public double evaluer(HashSet<Proposition> propositionsChoisi){
         int size = this.getPropositions().size(); // le nombre de propositions
         if( size != 0) {
             HashSet<Proposition> correct = partitionPropositions((x) -> x.isPropositionCorrect(),this.getPropositions()); // séparer les proposition correct

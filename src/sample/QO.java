@@ -11,7 +11,7 @@ public class QO extends Question {
         EVALUTOR = new Evaluator<Proposition>() {
             @Override
             public double evaluate(Proposition proposed, Proposition chosed) {
-                if (proposed.getProposition().equals(chosed.getProposition())) {
+                if (proposed.getProposition().toLowerCase().equals(chosed.getProposition().toLowerCase())) {
                     return 1;
                 }
                 return 0;

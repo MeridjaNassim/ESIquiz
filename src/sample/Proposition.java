@@ -22,6 +22,14 @@ public class Proposition {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        if(id != null){
+            return id.hashCode();
+        }
+        return 0; /// spécial case when using Proposition to answer QO questions
+    }
+
     public void setProposition(String proposition) {
         this.proposition = proposition;
     }
