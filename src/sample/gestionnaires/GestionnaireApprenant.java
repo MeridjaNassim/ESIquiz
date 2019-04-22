@@ -78,7 +78,8 @@ public class GestionnaireApprenant extends Gestionnaire {
             }
         }
         return 0;
-    } public double tauxAccomplissement(Apprenant apprenant,Quiz quiz){
+    }
+    public double tauxAccomplissement(Apprenant apprenant,Quiz quiz){
         /// Calcule le taux d'accomplissement d'un quiz par un apprenant
 
         return (quiz.getQuestions().size() ==0 ) ?0:apprenant.getQuizsEntames().get(quiz).size()/quiz.getQuestions().size();

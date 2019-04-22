@@ -3,7 +3,6 @@ package sample;
 import sample.utils.Evaluator;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class Question {
@@ -47,6 +46,13 @@ public abstract class Question {
 
             }
         }
+    }
+    public void afficherPropositions()
+    {
+        for (Proposition p:propositions) {
+            System.out.println(p.getProposition());
+        }
+
     }
 
     @Override

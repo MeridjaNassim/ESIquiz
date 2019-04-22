@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import sample.gestionnaires.GestionnaireApprenant;
 import sample.gestionnaires.GestionnaireFormation;
 import sample.gestionnaires.GestionnaireQuiz;
@@ -43,6 +44,7 @@ public class ESIQuiz extends Application {
 
     public static void main(String[] args)
     {
+
         Date dateDeNaissance = new GregorianCalendar(1999, Calendar.NOVEMBER, 13).getTime();
         Date dateDeFin = new GregorianCalendar(2020, Calendar.NOVEMBER, 13).getTime();
         //La generation des id des differents elements de l'application: formateurs ,apprenenats,.....
@@ -139,7 +141,53 @@ public class ESIQuiz extends Application {
         quiz1.setOuvertureDate(new Date());
         System.out.println("-------------- Affichage du quiz ---------------");
         gestquiz.afficheQuiz(quiz1);
-        return;
+        System.out.println("---------------Scenario 1: 100% reponses sur un quiz--------------");
+        Pair<Quiz,List<Reponse>> QnA1= gestquiz.ouvrirQuiz(quiz1.getId(),apprenant_1,true);
+         List<Reponse> lreponses=new ArrayList<Reponse>();
+        for (Question q:QnA1.getKey().getQuestions())
+        {
+            List<Proposition> lpropos=new ArrayList<Proposition>();
+            System.out.println("Question : "+q.getEnonceQuestion()+"("+q.getClass()+")");
+            for (int i=0;i<q.getPropositions().size();++i)
+            {
+                q.afficherPropositions();
+            }
+            Scanner sc=new Scanner(System.in);
+            if (q.getClass() == QCU.class)
+            {
+                System.out.println("RECOPIER LA BONNE REPONSE \n");
+                String reponseString=sc.nextLine();
+                Proposition proposition=new Proposition(null,null,reponseString);
+                lpropos.add(proposition);
+            }
+            if (q.getClass() == QCM.class)
+            {
+                System.out.println("RECOPIER LES BONNES REPONSES CHACCUNE DANS UNE LIGNE ( APPUYER ENTRER APRES CHAQUE REPONSE ET ENTRER UNE CBAINE VIDE POUR SOUMETTRE )\n ");
+                String reponseString;
+                while ((reponseString = sc.nextLine()).length() > 0)
+                {
+                    Proposition proposition=new Proposition(null,null,reponseString);
+                    lpropos.add(proposition);
+                }
+
+            }
+            if(q.getClass()==QO.class)
+            {
+                System.out.println("ENTRER VOTRE REPONSE \n");
+                String reponseString=sc.nextLine();
+                Proposition proposition=new Proposition(null,null,reponseString);
+                lpropos.add(proposition);
+            }
+            Reponse reponse=gestquiz.buildReponse(q.getId(),lpropos);
+            lreponses.add(reponse);
+            System.out.println("--------------------------");
+        }
+        gestquiz.repondre(apprenant_1,QnA1.getKey(),lreponses);
+        System.out.println(apprenant_1.getQuizsEntames().get(quiz1).size());
+        System.out.println(lreponses.size());
+        System.out.println(quiz1.getQuestions().size());
+        System.out.println("le taux d'accomplissement de ce quiz est : "+(gestApprenant.tauxAccomplissement(apprenant_1,quiz1))*100+" %a");
+        System.out.println("---------------Scenario 1: quiz non achevé--------------");
     }
      static boolean authentifier(String username , String password){
         Compte temp = new Compte(username,password,null);

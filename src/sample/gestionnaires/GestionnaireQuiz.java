@@ -1,6 +1,5 @@
 package sample.gestionnaires;
 
-import com.sun.javafx.image.impl.General;
 import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import sample.*;
@@ -232,7 +231,7 @@ public class GestionnaireQuiz extends Gestionnaire {
         /// permet de répondre à une question donnée
         app.addQuizEntame(quiz,reponses);
     }
-    public Reponse getReponse(String questionID,List<Proposition> propositions){
+    public Reponse buildReponse(String questionID,List<Proposition> propositions){
         /// Construit une reponse à partir de l'id de la question et les prorposition choisi
         Reponse rep = new Reponse(questionID);
         for (Proposition prop: propositions
@@ -252,7 +251,7 @@ public class GestionnaireQuiz extends Gestionnaire {
 
                 for (Reponse re: rep) {
                     if(re.equals(temp2)){
-                        re = getReponse(questionId,propositions);
+                        re = buildReponse(questionId,propositions);
                         return re;
                     }
                 }

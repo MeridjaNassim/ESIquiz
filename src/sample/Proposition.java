@@ -3,8 +3,8 @@ package sample;
 public class Proposition {
     private final String id;
     private String proposition;
-    private final boolean propositionCorrect;
-    public Proposition(String id, boolean propositionCorrect , String proposition) {
+    private final Boolean propositionCorrect;
+    public Proposition(String id, Boolean propositionCorrect , String proposition) {
         this.id = id;
         this.proposition = proposition;
         this.propositionCorrect = propositionCorrect;
@@ -34,8 +34,5 @@ public class Proposition {
         return propositionCorrect;
     }
 
-    @Override
-    public int hashCode() {
-        return this.id.hashCode();
-    }
+
 }
