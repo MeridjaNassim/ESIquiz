@@ -27,5 +27,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.0.0" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.9.8" level="project" />
   </component>
 </module>

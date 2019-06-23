@@ -1,5 +1,6 @@
 package sample;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -238,11 +239,16 @@ public class ESIQuiz extends Application {
 
         }
         System.out.println("le taux d'accomplissement de ce quiz est : "+(gestApprenant.tauxAccomplissement(apprenant_1,quiz1))*100+" %");
+        /// Consultation activité d'un apprenant
         gestApprenant.afficherQuizEntame(apprenant_1.getId());
-        gestApprenant.evaluerApprenant(apprenant_1,true);
         gestApprenant.afficherReussiteMoyenne(apprenant_1.getId());
+        /// evaluation de l'apprenant
+        gestApprenant.evaluerApprenant(apprenant_1,true);
         gestApprenant.calculReussiteMoyenne(apprenant_1.getId());
         gestApprenant.afficherReussiteMoyenne(apprenant_1.getId());
+        /// trie des apprenant selon la reussite moyenne
+        gestApprenant.trierApprenantsSelonMoyenne(true);
+        gestForm1.afficherApprenants(formation_1.getId());
 
     }
      static boolean authentifier(String username , String password){

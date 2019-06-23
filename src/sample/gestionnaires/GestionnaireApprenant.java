@@ -148,8 +148,14 @@ public class GestionnaireApprenant extends Gestionnaire {
         Compte compte = GenerateurCompte.generateCompte(personne);
         return compte;
     }
-    public void trierApprenantsSelonMoyenne(){
+    public void trierApprenantsSelonMoyenne(boolean descending){
+        /// ordre décroissant si descending == true sinon croissant
+        if(descending){
+            Collections.sort(getFormation().getApprenants(),Collections.reverseOrder());
+            return;
+        }
         Collections.sort(getFormation().getApprenants());
+
     }
     public Apprenant getApprenantByID(String id) {
         return getApprenantByID(this.getFormation(),id);

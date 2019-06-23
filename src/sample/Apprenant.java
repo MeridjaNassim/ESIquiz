@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -82,5 +83,8 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
                 "Name : "+name+"\n"+
                 "moyenne : "+reussiteMoyenne+"\n";
     }
+    /// COMPARATORS
+
+
 
 }
