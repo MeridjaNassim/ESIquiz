@@ -1,6 +1,6 @@
 package sample.gestionnaires;
 
-import sample.Formation;
+import sample.Common.Formation;
 
 public abstract class Gestionnaire {
 

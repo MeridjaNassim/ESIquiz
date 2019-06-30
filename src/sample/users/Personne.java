@@ -1,14 +1,14 @@
-package sample;
+package sample.users;
 
 import java.util.Date;
 
 public abstract class Personne {
-    protected final String id;
-    protected String name;
-    protected String prenom;
-    protected Date dateDeNaissance;
-    protected String lieuDeNaissance;
-    protected String adresse;
+    private final String id;
+    private String name;
+    private String prenom;
+    private Date dateDeNaissance;
+    private String lieuDeNaissance;
+    private String adresse;
 
     public Personne(String id, String name, String prenom, Date dateDeNaissance, String lieuDeNaissance, String adresse) {
         this.id = id;

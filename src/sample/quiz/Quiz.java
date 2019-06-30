@@ -1,10 +1,9 @@
-package sample;
+package sample.quiz;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 public class Quiz {
     private final String id;
@@ -79,5 +78,16 @@ public class Quiz {
     public void ajouterQuestion(Question question){
             questions.add(question);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId().equals(((Quiz) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
 }
 

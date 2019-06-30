@@ -1,4 +1,4 @@
-package sample;
+package sample.quiz;
 
 import sample.utils.Evaluator;
 

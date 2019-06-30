@@ -1,11 +1,11 @@
-package sample;
+package sample.users;
 
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.jetbrains.annotations.*;
-import sample.gestionnaires.GestionnaireQuiz;
+import sample.quiz.Quiz;
+import sample.quiz.Reponse;
 
 public class Apprenant extends Personne implements  Comparable<Apprenant> {
    ///<summary>
@@ -46,6 +46,7 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
         return quizsEntames;
     }
     public void addEvalution(Quiz quiz , double eval){
+        /// ajoute une evalution d'un quiz
         try{
            this.evaluations.put(quiz,eval);
         }catch (IllegalArgumentException e ){
@@ -55,6 +56,7 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
         }
     }
     public void addQuizEntame(Quiz quiz ,List<Reponse> reponses){
+        /// Ajoute un quiz entamé par l'apprenant avec ses reponses
         try{
             if(quiz == null ){
                 throw new NullPointerException("quiz is null");
@@ -76,11 +78,18 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
     public void setReussiteMoyenne(double reussiteMoyenne) {
         this.reussiteMoyenne = reussiteMoyenne;
     }
-
+    public void calculReussiteMoyenne(){
+        double sum =0 ;
+        for (Quiz quiz : this.getEvaluations().keySet()
+        ) {
+            sum += this.getEvaluations().get(quiz);
+        }
+        this.setReussiteMoyenne(sum/this.getEvaluations().size());
+    }
     @Override
     public String toString() {
-        return "ID : "+id+"\n"+
-                "Name : "+name+"\n"+
+        return "ID : "+super.getId()+"\n"+
+                "Name : "+super.getName()+"\n"+
                 "moyenne : "+reussiteMoyenne+"\n";
     }
     /// COMPARATORS

@@ -1,9 +1,6 @@
-package sample;
+package sample.quiz;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Reponse {
     private final String id; /// id of the question that this Reponse answers

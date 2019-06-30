@@ -2,7 +2,9 @@ package sample.gestionnaires;
 
 import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
-import sample.*;
+import sample.Common.Notion;
+import sample.quiz.*;
+import sample.users.Apprenant;
 import sample.utils.GeneratorID;
 
 import java.text.DateFormat;
@@ -21,7 +23,7 @@ public class GestionnaireQuiz extends Gestionnaire {
 
     public void modifierTitreQuiz(String quizId, String newTitle) {
         for (Quiz qz : getFormation().getQuizzes()
-                ) {
+        ) {
             if (qz.getId().equals(quizId)) {
                 qz.setNomQuiz(newTitle);
                 return;
@@ -57,7 +59,7 @@ public class GestionnaireQuiz extends Gestionnaire {
     public void ajouterQuestion(String quizId, String notionID) {
         /// ajoute une question aléatoire au quiz
         for (Quiz qz : getFormation().getQuizzes()
-                ) {
+        ) {
             if (qz.getId().equals(quizId)) {
                 /// while the question already exists in quiz change it randomly
                 Question question = randomQuastion(notionID);
@@ -72,7 +74,7 @@ public class GestionnaireQuiz extends Gestionnaire {
     public void changerQuestion(String quizId, String questionId, String newQsNotionId) {
         /// permet de changer une question donnée par une autre aléatoire d'une notion spécifié (celle ci n'est pas la meme que celle changé )
         for (Quiz quiz : getFormation().getQuizzes()
-                ) {
+        ) {
             if (quiz.getId().equals(quizId)) {
                 Question question = randomQuastion(newQsNotionId);
                 while (question.getId().equals(questionId) && quiz.getQuestions().contains(question)) {
@@ -89,7 +91,7 @@ public class GestionnaireQuiz extends Gestionnaire {
 
     public boolean isQuizOuvert(String quizId) {
         for (Quiz qz : getFormation().getQuizzes()
-                ) {
+        ) {
             if (qz.getId().equals(quizId)) {
                 return qz.getOuvertureDate().before(new Date());
             }
@@ -104,7 +106,7 @@ public class GestionnaireQuiz extends Gestionnaire {
 
     public void afficherQuizs() {
         for (Quiz quiz : getFormation().getQuizzes()
-                ) {
+        ) {
             afficheQuiz(quiz);
         }
     }
@@ -115,7 +117,7 @@ public class GestionnaireQuiz extends Gestionnaire {
             return;
         }
         for (Quiz quiz : getFormation().getQuizzes()
-                ) {
+        ) {
             if (isQuizOuvert(quiz)) {
                 afficheQuiz(quiz);
             }
@@ -130,7 +132,7 @@ public class GestionnaireQuiz extends Gestionnaire {
         System.out.println("Quiz Fermeture :" + dateFormat.format(quiz.getExpirationDate()));
         System.out.println("--Les Questions du quiz--");
         for (Question question : quiz.getQuestions()
-                ) {
+        ) {
             afficheQuestion(question);
         }
     }
@@ -142,7 +144,7 @@ public class GestionnaireQuiz extends Gestionnaire {
         System.out.println("Question ? : " + question.getEnonceQuestion());
         System.out.println("--Les propositions--");
         for (Proposition props : question.getPropositions()
-                ) {
+        ) {
             System.out.println(props.getId() + "-" + props.getProposition());
         }
 
@@ -165,7 +167,7 @@ public class GestionnaireQuiz extends Gestionnaire {
     private Question randomQuastion(String notionID) {
         /// génére une question aléatoire de la notion d'id notionID si elle existe dans la formation
         for (Notion notion : getFormation().getNotions()
-                ) {
+        ) {
             if (notion.getId().equals(notionID)) {
                 Random rand = new Random();
                 int index = rand.nextInt(notion.getQuestionsSet().size());
@@ -188,7 +190,7 @@ public class GestionnaireQuiz extends Gestionnaire {
     public Question getQuestionByID(Quiz quiz, String id) {
         ///récuprer la question (id) depuis le quiz
         for (Question question : quiz.getQuestions()
-                ) {
+        ) {
             if (question.getId().equals(id)) {
                 return question;
             }
@@ -199,7 +201,7 @@ public class GestionnaireQuiz extends Gestionnaire {
     public Question getQuestionByID(String id) {
         /// recupérer une question de la formation par l'id
         for (Quiz quiz : getFormation().getQuizzes()
-                ) {
+        ) {
             Question question = getQuestionByID(quiz, id);
             if (question != null) {
                 return question;
@@ -208,50 +210,52 @@ public class GestionnaireQuiz extends Gestionnaire {
         return null;
     }
 
-    public Pair<Quiz,List<Reponse>> ouvrirQuiz(String quizID, Apprenant app, boolean newTrial) {
+    public Pair<Quiz, List<Reponse>> ouvrirQuiz(String quizID, Apprenant app, boolean newTrial) {
         /// Ouvre un quiz dont l'id est quizId si il existe dans les quiz entamé de l'apprenant app , si newTrial == true le quiz serra ouvert sans reponses (les anciens serront effacé)
         /// si le quiz ne figure pas dans la formation il null serra retourné (rien n'est ouvert )
         Quiz quiz = getQuizByID(quizID);
         if (quiz != null) {
             if (newTrial) {
                 app.addQuizEntame(quiz, new ArrayList<>());
-                return new Pair<>(quiz,app.getQuizsEntames().get(quiz));
+                return new Pair<>(quiz, app.getQuizsEntames().get(quiz));
             }
-            if(app.getQuizsEntames().containsKey(quiz)){
-                return new Pair<>(quiz,app.getQuizsEntames().get(quiz));
-            }else {
+            if (app.getQuizsEntames().containsKey(quiz)) {
+                return new Pair<>(quiz, app.getQuizsEntames().get(quiz));
+            } else {
                 app.addQuizEntame(quiz, new ArrayList<>());
-                return new Pair<>(quiz,app.getQuizsEntames().get(quiz));
+                return new Pair<>(quiz, app.getQuizsEntames().get(quiz));
             }
         }
         return null;
     }
 
-    public void repondre(@NotNull Apprenant app , Quiz quiz ,List<Reponse> reponses){
+    public void repondre(@NotNull Apprenant app, Quiz quiz, List<Reponse> reponses) {
         /// permet de répondre à une question donnée
-        app.addQuizEntame(quiz,reponses);
+        app.addQuizEntame(quiz, reponses);
     }
-    public Reponse buildReponse(String questionID,List<Proposition> propositions){
+
+    public Reponse buildReponse(String questionID, List<Proposition> propositions) {
         /// Construit une reponse à partir de l'id de la question et les prorposition choisi
         Reponse rep = new Reponse(questionID);
-        for (Proposition prop: propositions
-             ) {
+        for (Proposition prop : propositions
+        ) {
             rep.ajouterPropos(prop);
         }
         return rep;
     }
-    public Reponse modifierReponse(String questionId,Apprenant apprenant,List<Proposition> propositions){
+
+    public Reponse modifierReponse(String questionId, Apprenant apprenant, List<Proposition> propositions) {
         /// Modifie une reponse d'une question donné dans quiz commencé par l'apprenant par une list de proposition rechoisi
-        Question temp =new QO(questionId,"");
-        Reponse temp2= new Reponse(questionId);
-        for (Quiz quiz: apprenant.getQuizsEntames().keySet()
-             ) {
-            if(quiz.getQuestions().contains(temp)){
+        Question temp = new QO(questionId, "");
+        Reponse temp2 = new Reponse(questionId);
+        for (Quiz quiz : apprenant.getQuizsEntames().keySet()
+        ) {
+            if (quiz.getQuestions().contains(temp)) {
                 List<Reponse> rep = apprenant.getQuizsEntames().get(quiz);
 
-                for (Reponse re: rep) {
-                    if(re.equals(temp2)){
-                        re = buildReponse(questionId,propositions);
+                for (Reponse re : rep) {
+                    if (re.equals(temp2)) {
+                        re = buildReponse(questionId, propositions);
                         return re;
                     }
                 }
@@ -259,16 +263,17 @@ public class GestionnaireQuiz extends Gestionnaire {
         }
         return null;
     }
-    public void supprimerReponse(String questionID ,Apprenant apprenant){
+
+    public void supprimerReponse(String questionID, Apprenant apprenant) {
         /// Supprime une Reponse d'une question qu'un apprenant à commencer
-        Question temp =new QO(questionID,"");
-        Reponse temp2= new Reponse(questionID);
-        for (Quiz quiz: apprenant.getQuizsEntames().keySet()
-                ) {
-            if(quiz.getQuestions().contains(temp)){
+        Question temp = new QO(questionID, "");
+        Reponse temp2 = new Reponse(questionID);
+        for (Quiz quiz : apprenant.getQuizsEntames().keySet()
+        ) {
+            if (quiz.getQuestions().contains(temp)) {
                 List<Reponse> rep = apprenant.getQuizsEntames().get(quiz);
-                for (Reponse re: rep) {
-                    if(re.equals(temp2)){
+                for (Reponse re : rep) {
+                    if (re.equals(temp2)) {
                         rep.remove(re);
                     }
                 }
@@ -276,11 +281,11 @@ public class GestionnaireQuiz extends Gestionnaire {
         }
     }
 
-    public Proposition getPropositionByID(Question question,String id ){
+    public Proposition getPropositionByID(Question question, String id) {
         /// Recupérer une proposition d'une question à partir de son ID
-        for (Proposition propo: question.getPropositions()
-             ) {
-            if(propo.getId().equals(id)){
+        for (Proposition propo : question.getPropositions()
+        ) {
+            if (propo.getId().equals(id)) {
                 return propo;
             }
         }

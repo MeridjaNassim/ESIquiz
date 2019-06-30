@@ -1,15 +1,19 @@
-package sample;
+package sample.Common;
 
 import org.jetbrains.annotations.NotNull;
+import sample.quiz.Quiz;
+import sample.users.Apprenant;
+import sample.users.Formateur;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class Formation {
     private final String id;
-    private List<Apprenant> apprenants;
+    private HashMap<String,Apprenant> apprenants;
     private String nom;
     private List<Notion> notions;
     private Date ouvertureFormationDate;
@@ -22,7 +26,7 @@ public class Formation {
         this.nom = nom;
         this.ouvertureFormationDate = ouvertureFormationDate;
         this.expirationFormationDate = expirationFormationDate;
-        apprenants = new ArrayList<>();
+        apprenants = new HashMap<>();
         notions = new ArrayList<>();
         quizzes = new ArrayList<>();
 
@@ -35,7 +39,7 @@ public class Formation {
         this.expirationFormationDate = expirationFormationDate;
         this.formateur = formateur;
         quizzes = new ArrayList<>();
-        apprenants = new ArrayList<>();
+        apprenants = new HashMap<>();
         notions = new ArrayList<>();
     }
 
@@ -51,7 +55,7 @@ public class Formation {
         return id;
     }
 
-    public List<Apprenant> getApprenants() {
+    public HashMap<String,Apprenant> getApprenants() {
         return apprenants;
     }
 
@@ -88,17 +92,10 @@ public class Formation {
     }
 
     public void addApprenant(Apprenant apprenant){
-        if(!this.apprenants.contains(apprenant)){
-            this.apprenants.add(apprenant);
-        }
+        apprenants.put(apprenant.getId(),apprenant);
     }
     public  void removeApprenant(String id){
-        for (Apprenant apprenant: this.apprenants ) {
-            if(apprenant.id.equals(id)){
-                this.apprenants.remove(apprenant);
-                return;
-            }
-        }
+        this.apprenants.remove(id);
     }
 
     public void addNotion(Notion notion){
@@ -146,7 +143,7 @@ public class Formation {
     }
 
     public void modifierExpiration(Date newDate ,@NotNull String idFormateur) throws DateTimeException{
-     if(this.formateur.id.equals(idFormateur)) {
+     if(this.formateur.getId().equals(idFormateur)) {
          if(newDate.after(ouvertureFormationDate)){
              this.expirationFormationDate = newDate;
          }else
@@ -156,7 +153,7 @@ public class Formation {
      }
     }
     public void modifierOuverture(Date newDate ,@NotNull String idFormateur){
-        if(this.formateur.id.equals(idFormateur)){
+        if(this.formateur.getId().equals(idFormateur)){
                 this.ouvertureFormationDate = newDate;
         }
 

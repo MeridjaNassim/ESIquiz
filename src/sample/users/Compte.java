@@ -1,4 +1,4 @@
-package sample;
+package sample.users;
 
 public class Compte {
     /// <summary>
@@ -60,6 +60,9 @@ public class Compte {
 
     @Override
     public boolean equals(Object obj) {
+        /*
+        deux comptes sont egaux ssi les logins sont egaux et les mot de passe sont egaux
+        * */
         if(obj instanceof  Compte) {
             return (this.login.equals(((Compte) obj).login) && this.password.equals(((Compte) obj).password));
         }
@@ -68,6 +71,6 @@ public class Compte {
 
     @Override
     public int hashCode() {
-        return password.hashCode();
+        return (int ) (password.hashCode() * login.hashCode()) ;
     }
 }

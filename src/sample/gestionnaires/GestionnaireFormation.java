@@ -1,6 +1,10 @@
 package sample.gestionnaires;
 
 import sample.*;
+import sample.Common.Formation;
+import sample.Common.Notion;
+import sample.users.Apprenant;
+import sample.users.Formateur;
 import sample.utils.GeneratorID;
 
 import java.util.Date;

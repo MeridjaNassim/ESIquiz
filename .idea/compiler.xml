@@ -12,7 +12,7 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel>
-      <module name="ESIquiz" target="12" />
+      <module name="ESIquiz" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

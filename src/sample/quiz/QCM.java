@@ -1,4 +1,4 @@
-package sample;
+package sample.quiz;
 
 import sample.utils.Evaluator;
 
@@ -27,6 +27,7 @@ public class QCM extends Question {
     }
 
     public double evaluer(HashSet<Proposition> propositionsChoisi){
+        /// Permet d'evaluer le resultats de la question selon les propositions choisis de l'apprenant
         int size = this.getPropositions().size(); // le nombre de propositions
         if( size != 0) {
             HashSet<Proposition> correct = partitionPropositions((x) -> x.isPropositionCorrect(),this.getPropositions()); // séparer les proposition correct
@@ -56,6 +57,7 @@ public class QCM extends Question {
         return 0;
     }
     private HashSet<Proposition> partitionPropositions(Predicate<Proposition> predicate,List<Proposition> propositions){
+        /// Retourne un HashSet de Proposition  selon un prédicat donnée tel que tous les elements du hashSet le vérifie
         HashSet<Proposition> set = new HashSet<>();
         for (Proposition proposition: propositions
              ) {

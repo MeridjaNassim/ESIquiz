@@ -1,4 +1,6 @@
-package sample;
+package sample.Common;
+
+import sample.quiz.Question;
 
 import java.util.HashSet;
 import java.util.Set;

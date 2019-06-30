@@ -1,7 +1,7 @@
 package sample.utils;
 
-import sample.Compte;
-import sample.Personne;
+import sample.users.Compte;
+import sample.users.Personne;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

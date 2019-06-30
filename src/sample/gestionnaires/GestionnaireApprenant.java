@@ -1,16 +1,22 @@
 package sample.gestionnaires;
 
-import sample.*;
+import sample.Common.Formation;
+import sample.quiz.*;
+import sample.users.Apprenant;
+import sample.users.Compte;
+import sample.users.Personne;
 import sample.utils.GenerateurCompte;
 import sample.utils.GeneratorID;
 
 import java.util.*;
 
 public class GestionnaireApprenant extends Gestionnaire {
-
+/*
+* Cette class permet de gérer les apprenants a travers les fonctionnalitées tel que : l'évaluation des apprenants , le classement ...
+* */
 
     public void evaluerApprenants(boolean notUseDate){
-        for (Apprenant apprenant: getFormation().getApprenants()
+        for (Apprenant apprenant: getFormation().getApprenants().values()
              ) {
             evaluerApprenant(apprenant,notUseDate);
             }
@@ -88,20 +94,16 @@ public class GestionnaireApprenant extends Gestionnaire {
 
     }
     public void afficherQuizAcheve(String apprenantID){
-        for (Apprenant apprenant:getFormation().getApprenants()
-             ) {
-            if(apprenant.getId().equals(apprenantID)) {
+        Apprenant apprenant = getFormation().getApprenants().get(apprenantID);
                 for (Quiz quiz: apprenant.getEvaluations().keySet()
                      ) {
                     System.out.println("Quiz ID : "+quiz.getId()+" Evaluation : "+apprenant.getEvaluations().get(quiz));
                 }
-            }
-        }
+
     }
     public void afficherQuizEntame(String apprenantID){
-        for (Apprenant apprenant:this.getFormation().getApprenants()
-                ) {
-            if(apprenant.getId().equals(apprenantID)) {
+        Apprenant apprenant = getFormation().getApprenants().get(apprenantID);
+
                 for (Quiz quiz: apprenant.getQuizsEntames().keySet()
                         ) {
                     System.out.println("Quiz ID : " + quiz.getId() + " Taux Accomplissement : "+ tauxAccomplissement(apprenant,quiz));
@@ -115,58 +117,45 @@ public class GestionnaireApprenant extends Gestionnaire {
                         }
                     }
                 }
-            }
-        }
+
     }
+
     public void calculReussiteMoyenne(String apprenantID){
-        for (Apprenant apprenant: getFormation().getApprenants()
-             ) {
-            if(apprenant.getId().equals(apprenantID)){
-                double sum =0 ;
-                for (Quiz quiz : apprenant.getEvaluations().keySet()
-                     ) {
-                    sum += apprenant.getEvaluations().get(quiz);
-                }
-                apprenant.setReussiteMoyenne(sum/apprenant.getEvaluations().size());
-            }
+        Apprenant ap = getFormation().getApprenants().get(apprenantID);
+        if(ap != null){
+            ap.calculReussiteMoyenne();
         }
     }
     public void afficherReussiteMoyenne(String apprenantID){
-        for (Apprenant apprenant: getFormation().getApprenants()
-                ) {
-            if(apprenant.getId().equals(apprenantID)){
-                System.out.println("Apprenant : "+apprenantID+" Nom : " +apprenant.getName()+" Moyenne : " +apprenant.getReussiteMoyenne());
-            }
-        }
+        Apprenant apprenant = getFormation().getApprenants().get(apprenantID);
+        System.out.println("Apprenant : "+apprenantID+" Nom : " +apprenant.getName()+" Moyenne : " +apprenant.getReussiteMoyenne());
+
+
     }
     public Apprenant nouveauApprenant(Personne person) {
         Apprenant apprenant = new Apprenant(GeneratorID.newPersonID(Apprenant.class),person.getName(),person.getPrenom(),person.getDateDeNaissance(),person.getLieuDeNaissance(),person.getAdresse());
         return apprenant;
     }
 
-    public Compte nouveauCompteApprenant( Personne personne){
+    public Compte nouveauCompteApprenant(Personne personne){
         Compte compte = GenerateurCompte.generateCompte(personne);
         return compte;
     }
-    public void trierApprenantsSelonMoyenne(boolean descending){
+    public List<Apprenant> trierApprenantsSelonMoyenne(boolean descending){
         /// ordre décroissant si descending == true sinon croissant
+        List apprenants = Arrays.asList(getFormation().getApprenants().values().toArray());
         if(descending){
-            Collections.sort(getFormation().getApprenants(),Collections.reverseOrder());
-            return;
+            Collections.sort(apprenants,Collections.reverseOrder());
+            return apprenants;
         }
-        Collections.sort(getFormation().getApprenants());
-
+        Collections.sort(apprenants);
+    return  apprenants;
     }
     public Apprenant getApprenantByID(String id) {
         return getApprenantByID(this.getFormation(),id);
     }
     public Apprenant getApprenantByID(Formation formation , String id) {
-        for (Apprenant apprenant: formation.getApprenants()
-             ) {
-            if(apprenant.getId().equals(id)) {
-                return apprenant;
-            }
-        }
-        return null;
+
+        return formation.getApprenants().get(id);
     }
 }

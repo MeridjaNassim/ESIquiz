@@ -1,10 +1,11 @@
-package sample;
+package sample.quiz;
 
 public class Proposition {
     private final String id;
     private String proposition;
     private final Boolean propositionCorrect;
-    public Proposition(String id, Boolean propositionCorrect , String proposition) {
+
+    public Proposition(String id, Boolean propositionCorrect, String proposition) {
         this.id = id;
         this.proposition = proposition;
         this.propositionCorrect = propositionCorrect;
@@ -16,7 +17,7 @@ public class Proposition {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Proposition){
+        if (obj instanceof Proposition) {
             return this.id.equals(((Proposition) obj).id);
         }
         return false;
@@ -24,7 +25,7 @@ public class Proposition {
 
     @Override
     public int hashCode() {
-        if(id != null){
+        if (id != null) {
             return id.hashCode();
         }
         return 0; /// spécial case when using Proposition to answer QO questions

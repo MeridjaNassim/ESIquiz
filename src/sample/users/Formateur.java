@@ -1,4 +1,4 @@
-package sample;
+package sample.users;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,2 +1,6 @@
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane></AnchorPane>
+
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane gridLinesVisible="true" >
+
+</GridPane>
