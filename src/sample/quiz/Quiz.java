@@ -1,6 +1,6 @@
 package sample.quiz;
 
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.Date;
 import java.util.HashSet;
@@ -59,7 +59,7 @@ public class Quiz {
     public void setOuvertureDate(Date ouvertureDate) {
         this.ouvertureDate = ouvertureDate;
     }
-    public void remplacerQuestion(@NotNull String id , Question newQuestion){
+    public void remplacerQuestion( String id , Question newQuestion){
        Question temp = new QO(id,null);
        this.getQuestions().remove(temp);
        this.getQuestions().add(newQuestion);
@@ -67,7 +67,7 @@ public class Quiz {
     public void remplacerQuestion(Question q1,Question newQuestion){
         q1=newQuestion;
     }
-    public void supprimerQuestion(@NotNull String id ){
+    public void supprimerQuestion(String id ){
         for (Question qs: questions) {
             if(qs.getId().equals(id)){
                 questions.remove(qs);
@@ -89,5 +89,22 @@ public class Quiz {
         return getId().hashCode();
     }
 
+    @Override
+    public String toString() {
+        String info = "Quiz ID : " +this.getId()+"\n"+
+                "Quiz Name : "+this.getNomQuiz()+"\n"+
+                "Date Debut : " +this.getOuvertureDate()+"\n"+
+                "Date Fin : " +this.getExpirationDate()+"\n";
+        String questionns ="";
+        for (Question q: this.getQuestions()
+             ) {
+            questionns +=q.getId()+", "+q.getEnonceQuestion()+"\n";
+            for (Proposition p : q.getPropositions()
+                 ) {
+                questionns+="#"+p.getId()+", "+p.getProposition()+", "+p.isPropositionCorrect()+"\n";
+            }
+        }
+        return info +questionns;
+    }
 }
 

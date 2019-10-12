@@ -1,6 +1,6 @@
 package sample.Common;
 
-import org.jetbrains.annotations.NotNull;
+
 import sample.quiz.Quiz;
 import sample.users.Apprenant;
 import sample.users.Formateur;
@@ -142,7 +142,7 @@ public class Formation {
         return id.hashCode();
     }
 
-    public void modifierExpiration(Date newDate ,@NotNull String idFormateur) throws DateTimeException{
+    public void modifierExpiration(Date newDate , String idFormateur) throws DateTimeException{
      if(this.formateur.getId().equals(idFormateur)) {
          if(newDate.after(ouvertureFormationDate)){
              this.expirationFormationDate = newDate;
@@ -152,7 +152,7 @@ public class Formation {
          }
      }
     }
-    public void modifierOuverture(Date newDate ,@NotNull String idFormateur){
+    public void modifierOuverture(Date newDate , String idFormateur){
         if(this.formateur.getId().equals(idFormateur)){
                 this.ouvertureFormationDate = newDate;
         }

@@ -16,7 +16,9 @@ public class GestionnaireFormation {
     public GestionnaireFormation(){
         init();
     }
-
+    public GestionnaireFormation(Formateur formateur){
+        this.formateur =formateur;
+    }
     public Formation nouvelleFormation(String nom , Date debut , Date fin) {
 
         Formation formation = new Formation(GeneratorID.newFormationID(),nom,debut,fin,formateur);
@@ -24,7 +26,7 @@ public class GestionnaireFormation {
         return formation;
     }
     public void ajouterNotion(String formationID , Notion notion){
-        for (Formation formation: ESIQuiz.getFormations()
+        for (Formation formation: ESIQuiz.formations
              ) {
             if(formation.getId().equals(formationID) && formation.getFormateur().equals(formateur)) {
                 formation.addNotion(notion);
@@ -32,7 +34,7 @@ public class GestionnaireFormation {
         }
     }
     public void ajouterNotions(String formationID , List<Notion> notions){
-        for (Formation formation: ESIQuiz.getFormations()
+        for (Formation formation: ESIQuiz.formations
                 ) {
             if(formation.getId().equals(formationID) && formation.getFormateur().equals(formateur)) {
                 for (Notion notion: notions
@@ -43,7 +45,7 @@ public class GestionnaireFormation {
         }
     }
     public void retirerNotion(String formationID , String notionID){
-        for (Formation formation: ESIQuiz.getFormations()
+        for (Formation formation: ESIQuiz.formations
                 ) {
             if(formation.getId().equals(formationID) && formation.getFormateur().equals(formateur)) {
                 formation.removeNotion(notionID);
@@ -51,7 +53,7 @@ public class GestionnaireFormation {
         }
     }
     public void ajouterApprenant(String formationID , Apprenant apprenant) {
-        for (Formation formation: ESIQuiz.getFormations()
+        for (Formation formation: ESIQuiz.formations
              ) {
             if(formation.getId().equals(formationID) && formation.getFormateur().equals(formateur)){
                 formation.addApprenant(apprenant);
@@ -59,7 +61,7 @@ public class GestionnaireFormation {
         }
     }
     public void retirerApprenant(String formationID , String apprenantID) {
-        for (Formation formation: ESIQuiz.getFormations()
+        for (Formation formation: ESIQuiz.formations
                 ) {
             if(formation.getId().equals(formationID) && formation.getFormateur().equals(formateur)){
                 formation.removeApprenant(apprenantID);
@@ -68,7 +70,7 @@ public class GestionnaireFormation {
     }
     public void afficherApprenants(String formationID){
       Formation formation =getFormationByID(formationID);
-        for (Apprenant ap: formation.getApprenants()
+        for (Apprenant ap: formation.getApprenants().values()
              ) {
             System.out.println(ap.toString());
         }
@@ -76,7 +78,7 @@ public class GestionnaireFormation {
     }
     public Formation getFormationByID(String id){
        if(formateur.hasFormation(id)){
-           for (Formation formation: ESIQuiz.getFormations()
+           for (Formation formation: ESIQuiz.formations
                    ) {
                if(formation.getId().equals(id)){
                    return formation;
@@ -86,6 +88,7 @@ public class GestionnaireFormation {
         return null;
     }
     public void init(){
-         formateur = (Formateur) ESIQuiz.getConnecte().getProprietaire();
+         formateur = (Formateur) ESIQuiz.connecte.getProprietaire();
     }
+
 }

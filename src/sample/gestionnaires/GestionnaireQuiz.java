@@ -1,7 +1,7 @@
 package sample.gestionnaires;
 
 import javafx.util.Pair;
-import org.jetbrains.annotations.NotNull;
+
 import sample.Common.Notion;
 import sample.quiz.*;
 import sample.users.Apprenant;
@@ -153,7 +153,8 @@ public class GestionnaireQuiz extends Gestionnaire {
     private void buildQuestions(HashMap<Notion, Integer> notions, Quiz quiz) {
         /// Construit un ensemble de questions pour le quiz appartir des notions choisi avec leur nombre de question
         for (Notion notion : notions.keySet()) {
-            int nbquestion = notions.get(notion); // nombre de questions par notion
+            int nbquestion =Math.min( notion.getQuestionsSet().size(),notions.get(notion)); // nombre de questions par notion
+
             for (int i = 0; i < nbquestion; i++) {
                 Question question = randomQuastion(notion.getId());
                 while (quiz.getQuestions().contains(question)) {
@@ -229,7 +230,7 @@ public class GestionnaireQuiz extends Gestionnaire {
         return null;
     }
 
-    public void repondre(@NotNull Apprenant app, Quiz quiz, List<Reponse> reponses) {
+    public void repondre( Apprenant app, Quiz quiz, List<Reponse> reponses) {
         /// permet de répondre à une question donnée
         app.addQuizEntame(quiz, reponses);
     }

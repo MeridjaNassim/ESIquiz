@@ -1,6 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<GridPane gridLinesVisible="true" >
 
-</GridPane>
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <JFXHamburger fx:id="hamburger" layoutX="556.0" layoutY="14.0" />
+      <JFXDrawer fx:id="drawer" prefHeight="400.0" prefWidth="176.0" />
+   </children>
+</AnchorPane>

@@ -1,6 +1,5 @@
 package sample.users;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,7 @@ public class Formateur extends Personne {
         super(id, name, prenom, dateDeNaissance, lieuDeNaissance);
         this.formationIds = new ArrayList<>();
     }
-    public void addFormation(@NotNull String formationId){
+    public void addFormation(String formationId){
         if(!hasFormation(formationId)){
             this.formationIds.add(formationId);
         }
@@ -26,7 +25,7 @@ public class Formateur extends Personne {
     public boolean hasFormation(String formationId){
         return this.formationIds.contains(formationId);
     }
-    public void removeFormation(@NotNull String formationId){
+    public void removeFormation( String formationId){
         if(this.hasFormation(formationId)){
             formationIds.remove(formationId);
         }

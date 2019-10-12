@@ -3,7 +3,7 @@ package sample.users;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.jetbrains.annotations.*;
+
 import sample.quiz.Quiz;
 import sample.quiz.Reponse;
 
@@ -30,7 +30,7 @@ public class Apprenant extends Personne implements  Comparable<Apprenant> {
     }
 
     @Override
-    public int compareTo(@NotNull Apprenant o) {
+    public int compareTo( Apprenant o) {
        return Double.compare(this.reussiteMoyenne,o.reussiteMoyenne);
     }
 

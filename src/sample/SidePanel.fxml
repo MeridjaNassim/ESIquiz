@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SidePanelController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="244.0" fx:id="sidePanelPane" >
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="159.0">
+               <children>
+                  <ImageView id="avatar" fx:id="avatar" fitHeight="73.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@assets/me.jpg" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="formateurName" text="Formateur Name" textFill="#ffffff" alignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="30.0"  top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0">
+                     <children>
+                        <Button id="formationsButton" mnemonicParsing="false" prefHeight="50" prefWidth="100" style="-fx-border-radius: 100;" text="Formations" />
+                        <Button fx:id="btnQuizzes" mnemonicParsing="false" prefHeight="50" prefWidth="100" style="-fx-border-radius: 100;" text="Quizzes" />
+                        <Button mnemonicParsing="false" prefHeight="50" prefWidth="100" style="-fx-border-radius: 100;" text="Apprenants" />
+                        <Button mnemonicParsing="false" prefHeight="50" prefWidth="100" style="-fx-border-radius: 100;" text="Déconnecter" fx:id="btnDeconnecte"/>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
